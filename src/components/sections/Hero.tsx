@@ -16,19 +16,35 @@ export function Hero() {
   useEffect(() => {
     const plane = gridRef.current;
     if (!plane) return;
+
     // Pointer-driven, so it is skipped on touch devices entirely.
     const fineMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!fineMouse) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // mousemove fires far more often than the display refreshes. Writing
+    // .style.transform on every event queues redundant compositor work, so
+    // coalesce to one write per frame.
+    let frame = 0;
+    let nextX = 0;
+    let nextY = 0;
+
+    const paint = () => {
+      frame = 0;
+      plane.style.transform = `translate(${nextX}px, ${nextY}px)`;
+    };
+
     const onMove = (e: MouseEvent) => {
-      const x = e.clientX / window.innerWidth - 0.5;
-      const y = e.clientY / window.innerHeight - 0.5;
-      plane.style.transform = `translate(${x * -22}px, ${y * -22}px)`;
+      nextX = (e.clientX / window.innerWidth - 0.5) * -22;
+      nextY = (e.clientY / window.innerHeight - 0.5) * -22;
+      if (!frame) frame = requestAnimationFrame(paint);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

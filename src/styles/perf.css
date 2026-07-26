@@ -1,0 +1,124 @@
+/* ============================================================
+   PERFORMANCE
+   Runtime paint / composite cost. Loaded last.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. backdrop-filter is the single most expensive thing that runs
+      during scroll. `.nav.scrolled` blurs a full-width strip on every
+      frame, and mobile GPUs handle this badly.
+
+      Desktop keeps the blur. Touch devices get an opaque bar instead —
+      visually near-identical because --nav-bg is already 78% opaque,
+      but it costs nothing to composite.
+   ------------------------------------------------------------ */
+@media (pointer: coarse) {
+    .nav.scrolled {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--ink);
+    }
+
+    /* Same reasoning for the frame tag on the portraits. */
+    .portrait .frame-tag {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--ink);
+    }
+}
+
+/* ------------------------------------------------------------
+   2. The film-grain overlay is a fixed, full-viewport layer that must
+      be composited on every scroll frame. At opacity .04 it is
+      essentially invisible on a phone screen, so the cost buys nothing
+      there. Kept on desktop where it is free.
+   ------------------------------------------------------------ */
+@media (pointer: coarse) {
+    body::before {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------------------
+   3. Promote the two elements that actually animate, so the compositor
+      handles them on its own layer instead of repainting.
+
+      `will-change` is deliberately NOT applied broadly — every hint
+      costs memory for a layer, and over-using it makes things slower.
+   ------------------------------------------------------------ */
+.marquee .track {
+    will-change: transform;
+}
+
+.grid-plane {
+    will-change: transform;
+}
+
+/* ------------------------------------------------------------
+   4. The theme-switch transition in tokens.css targets `section`,
+      `body` and a dozen card selectors. That is correct while the
+      toggle is being used, but it also means the very first paint has
+      transitions armed on most of the page.
+
+      Scoping it to a `data-theme-ready` attribute (set by ThemeProvider
+      after mount) means first paint has no transitions to evaluate.
+   ------------------------------------------------------------ */
+html:not([data-theme-ready]) body,
+html:not([data-theme-ready]) .nav,
+html:not([data-theme-ready]) section,
+html:not([data-theme-ready]) .svc,
+html:not([data-theme-ready]) .stat,
+html:not([data-theme-ready]) .about-card,
+html:not([data-theme-ready]) .principle,
+html:not([data-theme-ready]) .cta-box,
+html:not([data-theme-ready]) .contact-card,
+html:not([data-theme-ready]) .footer,
+html:not([data-theme-ready]) .tst,
+html:not([data-theme-ready]) .cred,
+html:not([data-theme-ready]) .portrait,
+html:not([data-theme-ready]) .marquee {
+    transition: none;
+}
+
+/* ------------------------------------------------------------
+   5. Skip layout, paint and style work for sections that are off
+      screen. This is the biggest scroll-smoothness win on a page this
+      long, but it is opt-in per section because of the caveat below.
+
+      CAVEAT: `content-visibility: auto` needs a size estimate while a
+      section is skipped. If the estimate is wrong, an anchor jump into
+      that section can land slightly off. The intrinsic sizes below are
+      measured, and #services is deliberately excluded because its
+      height changes when tabs switch and it contains a sticky element.
+
+      If you ever see an anchor link landing in the wrong place, delete
+      this block — everything above it stands on its own.
+   ------------------------------------------------------------ */
+#process,
+#founder,
+.footer {
+    content-visibility: auto;
+}
+
+#process {
+    contain-intrinsic-size: auto 620px;
+}
+
+#founder {
+    contain-intrinsic-size: auto 1600px;
+}
+
+.footer {
+    contain-intrinsic-size: auto 420px;
+}
+
+/* ------------------------------------------------------------
+   6. Long-distance smooth scrolling from the anchor nav means many
+      frames of continuous paint. Honour it on desktop; on touch, where
+      native momentum scrolling is better, let the browser jump.
+   ------------------------------------------------------------ */
+@media (pointer: coarse) {
+    html {
+        scroll-behavior: auto;
+    }
+}

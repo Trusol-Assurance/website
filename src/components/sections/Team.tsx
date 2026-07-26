@@ -17,7 +17,14 @@ function Portrait({ member, id }: { member: TeamMember; id?: string }) {
     <div className="portrait reveal in" id={id} style={style}>
       {hasPhoto ? (
         /* eslint-disable-next-line @next/next/no-img-element */
-        <img loading="lazy" decoding="async" src={member.photo.src} alt={member.photo.alt} />
+        <img
+          src={member.photo.src}
+          alt={member.photo.alt}
+          width={640}
+          height={800}
+          loading="lazy"
+          decoding="async"
+        />
       ) : null}
       <span className="ring" />
       <span className="frame-tag">{member.frameTag}</span>

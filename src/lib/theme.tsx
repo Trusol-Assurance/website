@@ -27,7 +27,7 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue>({
   theme: "dark",
-  toggle: () => {},
+  toggle: () => { },
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -36,8 +36,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const attr = document.documentElement.getAttribute("data-theme");
+    const root = document.documentElement;
+    const attr = root.getAttribute("data-theme");
     setTheme(attr === "light" ? "light" : "dark");
+    // Arms the theme-switch transitions only after the first paint — see the
+    // data-theme-ready block in perf.css. Without this, most of the page has
+    // background/color transitions to evaluate on initial render.
+    root.setAttribute("data-theme-ready", "");
   }, []);
 
   const toggle = useCallback(() => {
