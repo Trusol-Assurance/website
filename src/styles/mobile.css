@@ -1,0 +1,389 @@
+/* ============================================================
+   MOBILE OPTIMISATION
+   Loaded last so it can correct earlier rules without touching them.
+   Ordered by severity: breakage first, then ergonomics, then polish.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. HERO HEADLINE — was being clipped on every phone.
+
+   `.hero h1 .hl { white-space: nowrap }` forces
+   "Precision for your numbers." onto one line. The clamp floor of
+   2.6rem resolves to 41.6px on any viewport under ~645px, making that
+   span ~545px wide. With `body { overflow-x: hidden }` the excess is
+   silently cut off rather than scrollable — roughly 6 characters lost
+   off each end at 360px.
+
+   The absolutely-positioned `::after` underline cannot follow a span
+   once it wraps, so it is swapped for a background gradient with
+   box-decoration-break, which repeats correctly per line box.
+   ------------------------------------------------------------ */
+@media (max-width: 700px) {
+    .hero h1 {
+        font-size: clamp(1.95rem, 8.4vw, 2.9rem);
+        letter-spacing: -.025em;
+        margin: 18px 0 20px;
+    }
+
+    .hero h1 .hl {
+        white-space: normal;
+        background-image: linear-gradient(color-mix(in srgb, var(--mint) 55%, transparent),
+                color-mix(in srgb, var(--mint) 55%, transparent));
+        background-repeat: no-repeat;
+        background-size: 100% .10em;
+        background-position: 0 calc(100% - .08em);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
+
+    .hero h1 .hl::after {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------------------
+   2. MOBILE MENU — two genuine bugs.
+
+   a) No overflow handling. Five 2rem links plus 44px tap padding is
+      ~385px of content; a phone in landscape (~390px tall) cannot
+      reach the last item and cannot scroll to it.
+   b) Nothing hides the menu above the burger breakpoint. Open the
+      menu, rotate to landscape past 980px, and the burger disappears
+      while the full-screen overlay stays put with body scroll locked.
+   ------------------------------------------------------------ */
+.mobile-menu {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+@media (min-width: 981px) {
+    .mobile-menu {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------------------
+   3. LANDSCAPE PHONES — 120px+ of vertical section padding leaves
+      almost no content visible on a ~390px-tall viewport.
+   ------------------------------------------------------------ */
+@media (max-height: 520px) and (orientation: landscape) {
+    .hero {
+        padding: 104px 0 56px;
+    }
+
+    .section {
+        padding: 64px 0;
+    }
+
+    .section--tight {
+        padding: 48px 0;
+    }
+
+    .mobile-menu {
+        justify-content: flex-start;
+        gap: 2px;
+    }
+
+    .mobile-menu a {
+        font-size: 1.35rem;
+        padding: 9px 0;
+    }
+
+    .sec-head {
+        margin-bottom: 30px;
+    }
+}
+
+/* landscape notch: the nav already handles safe areas, content did not */
+@media (orientation: landscape) and (max-width: 980px) {
+    @supports (padding: env(safe-area-inset-left)) {
+        .wrap {
+            padding-left: max(28px, env(safe-area-inset-left));
+            padding-right: max(28px, env(safe-area-inset-right));
+        }
+    }
+}
+
+/* ------------------------------------------------------------
+   4. TAP TARGETS the existing coarse-pointer block missed.
+      Footer links sat at ~33px, socials at 40px, both under the 44px
+      WCAG 2.5.8 floor.
+   ------------------------------------------------------------ */
+@media (pointer: coarse) {
+    .foot-col a {
+        padding: 11px 0;
+    }
+
+    .socials a {
+        width: 44px;
+        height: 44px;
+    }
+
+    .contact-card .row {
+        padding: 15px 0;
+    }
+
+    .mobile-menu a {
+        display: flex;
+        align-items: center;
+        min-height: 56px;
+    }
+
+    .brand {
+        min-height: 44px;
+    }
+}
+
+/* ------------------------------------------------------------
+   5. CONTACT CARD — the email is 25 characters. Inside the CTA box on
+      a 360px screen the text column is only ~160px wide after the
+      38px icon and gaps, so the address overflowed its row.
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+    .cta-box {
+        padding: 34px 20px;
+    }
+
+    .contact-card {
+        padding: 20px 16px;
+    }
+
+    .contact-card .row {
+        gap: 12px;
+    }
+
+    /* flex children need min-width:0 before they will wrap */
+    .contact-card .row>div {
+        min-width: 0;
+    }
+
+    .contact-card .val {
+        font-size: .88rem;
+        overflow-wrap: anywhere;
+    }
+}
+
+/* ------------------------------------------------------------
+   6. ABOUT CARD — the 4rem decorative quote mark sits top-right and
+      collided with the heading once it wrapped to two lines.
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+    .about-card {
+        padding: 26px 22px;
+    }
+
+    .about-card .qmark {
+        font-size: 3rem;
+        top: 10px;
+        right: 14px;
+    }
+
+    .about-card h4 {
+        padding-right: 44px;
+    }
+}
+
+/* ------------------------------------------------------------
+   7. STATS — four full-width rows meant ~480px of scrolling for four
+      numbers. A 2x2 grid halves that and still reads cleanly.
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat {
+        padding: 26px 20px;
+        border-right: 0;
+        border-bottom: 0;
+    }
+
+    .stat:nth-child(odd) {
+        border-right: 1px solid var(--line);
+    }
+
+    .stat:nth-child(1),
+    .stat:nth-child(2) {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .stat .num {
+        font-size: 2.15rem;
+    }
+
+    .stat .lab {
+        margin-top: 8px;
+        font-size: .84rem;
+        max-width: 22ch;
+    }
+}
+
+/* below ~380px two columns get too tight for the labels */
+@media (max-width: 379px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat:nth-child(odd) {
+        border-right: 0;
+    }
+
+    .stat:nth-child(3) {
+        border-bottom: 1px solid var(--line);
+    }
+}
+
+/* ------------------------------------------------------------
+   8. SERVICE TABS — the horizontal strip worked but gave no hint that
+      it scrolled, so the later tabs went unnoticed. Fade the trailing
+      edge and add scroll snapping.
+   ------------------------------------------------------------ */
+@media (max-width: 860px) {
+    .svc-tabbar {
+        scroll-snap-type: x proximity;
+        scroll-padding-left: 10px;
+        mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent 100%);
+    }
+
+    .svc-tab {
+        scroll-snap-align: start;
+    }
+}
+
+@media (max-width: 560px) {
+    .svc-tab {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .svc-tab .svc-ic {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+    }
+
+    .svc-tab .svc-ic svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .svc-panel {
+        padding: 24px 18px;
+        border-radius: var(--r-md);
+    }
+
+    .svc-panel-head {
+        gap: 14px;
+    }
+
+    .svc-panel-head .svc-ic {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .svc-panel-head .svc-ic svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .svc-panel-head h3 {
+        font-size: 1.22rem;
+    }
+
+    .svc-panel>.intro {
+        font-size: .94rem;
+        margin: 14px 0 24px;
+    }
+
+    .svc-panel-groups {
+        gap: 22px;
+    }
+}
+
+/* practice tabs: two long labels plus a gap only just fit 360px */
+@media (max-width: 420px) {
+    .practice-tabs {
+        gap: 18px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .practice-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .practice-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+}
+
+/* ------------------------------------------------------------
+   9. HERO BODY — the trust row is a flex row with a 4-avatar stack
+      plus a 24ch paragraph; on a phone that squeezes the text into a
+      very narrow column.
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+    .hero {
+        padding: 124px 0 72px;
+    }
+
+    .hero .lead {
+        font-size: 1rem;
+    }
+
+    .hero-actions {
+        margin: 28px 0 26px;
+    }
+
+    .trust {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .trust p {
+        max-width: 34ch;
+    }
+}
+
+/* ------------------------------------------------------------
+   10. READABILITY — a handful of sizes sat below comfortable mobile
+       minimums (10.5px mono tags, 14px list copy).
+   ------------------------------------------------------------ */
+@media (max-width: 560px) {
+    .section {
+        padding: 72px 0;
+    }
+
+    .sec-head {
+        margin-bottom: 34px;
+    }
+
+    .tag {
+        font-size: .7rem;
+    }
+
+    .svc-group li {
+        font-size: .92rem;
+    }
+
+    .svc-group p {
+        font-size: .92rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    .foot-bottom p {
+        font-size: .74rem;
+    }
+
+    .marquee {
+        padding: 18px 0;
+    }
+}
