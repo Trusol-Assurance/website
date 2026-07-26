@@ -50,7 +50,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "piyush",
-    eyebrow: "Meet the COO",
+    eyebrow: "",
     name: "Piyush Agarwal",
     role: "CPA · CISA · CFE · FCA",
     // Both visible paragraphs carry data-d="2" in the source.
