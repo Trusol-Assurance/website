@@ -1,0 +1,46 @@
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.stat {
+  padding: 38px 30px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  transition: background .35s var(--ease);
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.stat:hover {
+  background: var(--panel);
+}
+
+.stat .num {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  color: var(--gold);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.stat .num .u {
+  color: var(--mint);
+}
+
+.stat .lab {
+  margin-top: 12px;
+  font-size: .9rem;
+  color: var(--muted);
+  max-width: 18ch;
+}

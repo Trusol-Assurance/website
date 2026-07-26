@@ -1,0 +1,27 @@
+/* ============================================================
+   SECTION HEADER
+   ============================================================ */
+.sec-head {
+  max-width: 640px;
+  margin-bottom: 54px;
+}
+
+.sec-head h2 {
+  font-size: clamp(2rem, 4.6vw, 3.3rem);
+  margin: 18px 0 16px;
+}
+
+.sec-head h2 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.sec-head.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.sec-head.center .eyebrow {
+  justify-content: center;
+}

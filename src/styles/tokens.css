@@ -1,0 +1,151 @@
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --ink: #0A0A0B;
+  /* base black */
+  --ink-2: #0F0F11;
+  /* alt section */
+  --panel: #161619;
+  /* raised cards — grey-black */
+  --panel-2: #1F1F25;
+  /* card hover / nested */
+  --gold: #FF6A2C;
+  /* primary accent — orange */
+  --gold-soft: #FF8A4C;
+  --mint: #A8ACB6;
+  /* secondary accent — grey */
+  --paper: #F4F2EF;
+  /* headline white */
+  --muted: #8A8F99;
+  /* secondary text — grey */
+  --muted-2: #595E68;
+  /* tertiary / fine print */
+  --line: rgba(244, 242, 239, 0.09);
+  --line-2: rgba(244, 242, 239, 0.16);
+  --grid: rgba(150, 150, 160, 0.10);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 34px;
+  --maxw: 1200px;
+
+  --ff-display: 'Space Grotesk', system-ui, sans-serif;
+  --ff-mono: 'Space Mono', ui-monospace, monospace;
+  --ff-body: 'Inter', system-ui, sans-serif;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* theme-aware extras */
+  --btn-ink: #1a1305;
+  --nav-bg: rgba(9, 12, 22, 0.78);
+  --glow-1: rgba(255, 106, 44, 0.30);
+  --glow-2: rgba(255, 138, 76, 0.12);
+  --panel-deep: #0E0E10;
+  --portrait-a: #1D1D22;
+  --portrait-b: #0C0C0E;
+  --cta-a: #1C1C22;
+  --backdrop: rgba(5, 6, 10, 0.74);
+  --tag-bg: rgba(9, 12, 22, 0.6);
+  --shadow: rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+[data-theme="light"] {
+  --ink: #F6F4F1;
+  /* base off-white */
+  --ink-2: #EFEDE8;
+  /* alt section */
+  --panel: #FFFFFF;
+  /* raised cards */
+  --panel-2: #F1EFEA;
+  /* card hover / nested */
+  --gold: #E85A1F;
+  /* deeper orange for contrast on light */
+  --gold-soft: #F0763C;
+  --mint: #5A5F6A;
+  /* secondary — darker grey */
+  --paper: #141416;
+  /* headline near-black */
+  --muted: #565B64;
+  /* secondary text */
+  --muted-2: #8A8F99;
+  /* tertiary / fine print */
+  --line: rgba(10, 10, 11, 0.10);
+  --line-2: rgba(10, 10, 11, 0.18);
+  --grid: rgba(60, 60, 70, 0.10);
+
+  --btn-ink: #FFF7F2;
+  --nav-bg: rgba(246, 244, 241, 0.82);
+  --glow-1: rgba(232, 90, 31, 0.16);
+  --glow-2: rgba(240, 118, 60, 0.10);
+  --panel-deep: #F3F1EC;
+  --portrait-a: #E9E6E0;
+  --portrait-b: #DDD9D2;
+  --cta-a: #FFFFFF;
+  --backdrop: rgba(40, 38, 34, 0.45);
+  --tag-bg: rgba(255, 255, 255, 0.72);
+  --shadow: rgba(30, 25, 20, 0.28);
+  color-scheme: light;
+}
+
+/* smooth theme switch */
+body,
+.nav,
+.nav.scrolled,
+section,
+.svc,
+.stat,
+.about-card,
+.principle,
+.modal,
+.cta-box,
+.contact-card,
+.footer,
+.tst,
+.cred,
+.portrait,
+.marquee {
+  transition: background .35s var(--ease), background-color .35s var(--ease),
+    color .35s var(--ease), border-color .35s var(--ease);
+}
+
+/* theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--line-2);
+  color: var(--paper);
+  cursor: pointer;
+  transition: border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold);
+  transform: rotate(15deg);
+}
+
+.theme-toggle .ic-sun {
+  display: none;
+}
+
+.theme-toggle .ic-moon {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle .ic-sun {
+  display: block;
+}
+
+[data-theme="light"] .theme-toggle .ic-moon {
+  display: none;
+}

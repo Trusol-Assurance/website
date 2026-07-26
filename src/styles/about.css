@@ -1,0 +1,109 @@
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about h2 {
+  font-size: clamp(2rem, 4.4vw, 3.2rem);
+  margin: 20px 0 22px;
+}
+
+.about h2 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.about .lead+.lead {
+  margin-top: 16px;
+}
+
+.about-side {
+  position: relative;
+}
+
+.about-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 30px;
+  position: relative;
+}
+
+.about-card h4 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.about-card p {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.about-card .qmark {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  font-family: var(--ff-display);
+  font-size: 4rem;
+  color: var(--line-2);
+  line-height: 1;
+}
+
+.principles {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.principles-label {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 24px;
+}
+
+.principles-label+.principles {
+  margin-top: 14px;
+}
+
+.principle {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+  transition: transform .35s var(--ease), border-color .35s var(--ease);
+}
+
+.principle:hover {
+  transform: translateX(6px);
+  border-color: var(--line-2);
+}
+
+.principle .pn {
+  font-family: var(--ff-mono);
+  font-size: .78rem;
+  color: var(--gold);
+  padding-top: 3px;
+}
+
+.principle h5 {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.principle p {
+  font-size: .88rem;
+  color: var(--muted);
+}

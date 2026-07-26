@@ -1,0 +1,267 @@
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 170px 0 90px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.grid-plane {
+  position: absolute;
+  inset: -20% -20% -20% -20%;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(ellipse 75% 65% at 60% 35%, #000 35%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 60% 35%, #000 35%, transparent 78%);
+  transition: transform .4s ease-out;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .5;
+}
+
+.glow.g1 {
+  width: 520px;
+  height: 520px;
+  background: var(--glow-1);
+  top: -120px;
+  right: -80px;
+}
+
+.glow.g2 {
+  width: 480px;
+  height: 480px;
+  background: var(--glow-2);
+  bottom: -180px;
+  left: -100px;
+}
+
+.hero-grid {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 6.2vw, 5rem);
+  font-weight: 700;
+  margin: 22px 0 24px;
+  letter-spacing: -.035em;
+}
+
+.hero h1 .hl {
+  color: var(--gold);
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero h1 .hl::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: .08em;
+  height: .10em;
+  background: var(--mint);
+  opacity: .55;
+  border-radius: 2px;
+}
+
+.hero .lead {
+  font-size: 1.12rem;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin: 34px 0 30px;
+  flex-wrap: wrap;
+}
+
+.hero .hero-actions {
+  justify-content: center;
+}
+
+.hero .trust {
+  justify-content: center;
+}
+
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stack {
+  display: flex;
+}
+
+.stack .av {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  margin-left: -12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+}
+
+.stack .av:first-child {
+  margin-left: 0;
+}
+
+.trust p {
+  font-size: .86rem;
+  color: var(--muted);
+  line-height: 1.4;
+  max-width: 24ch;
+}
+
+.trust p b {
+  color: var(--paper);
+  font-weight: 600;
+}
+
+/* hero ledger card — the "living statement" signature */
+.ledger {
+  background: linear-gradient(180deg, var(--panel), var(--panel-deep));
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  padding: 26px;
+  box-shadow: 0 30px 80px -30px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.ledger::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 40%, rgba(255, 106, 44, .06));
+  pointer-events: none;
+}
+
+.ledger-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ledger-top .tag {
+  font-family: var(--ff-mono);
+  font-size: .66rem;
+  letter-spacing: .18em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line-2);
+}
+
+.dots i:first-child {
+  background: var(--gold);
+}
+
+.dots i:nth-child(2) {
+  background: var(--mint);
+}
+
+.ledger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.ledger-row .l {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .92rem;
+  color: var(--muted);
+}
+
+.ledger-row .l .ic {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--mint);
+}
+
+.ledger-row .l .ic.gold {
+  background: var(--gold);
+}
+
+.ledger-row .v {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.ledger-row .v.pos {
+  color: var(--mint);
+}
+
+.ledger-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.ledger-total .l {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.ledger-total .v {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--gold);
+}
+
+.ledger-foot {
+  margin-top: 16px;
+  font-family: var(--ff-mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  color: var(--muted-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ledger-foot .badge {
+  color: var(--mint);
+}

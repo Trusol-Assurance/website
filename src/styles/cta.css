@@ -1,0 +1,99 @@
+/* ============================================================
+   CTA + CONTACT
+   ============================================================ */
+.cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box {
+  background: linear-gradient(150deg, var(--cta-a), var(--portrait-b));
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-xl);
+  padding: 64px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box .glow.g1 {
+  top: -160px;
+  right: -100px;
+  opacity: .4;
+}
+
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1.3fr .9fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cta h2 {
+  font-size: clamp(2.1rem, 4.8vw, 3.6rem);
+  letter-spacing: -.03em;
+}
+
+.cta h2 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.cta p {
+  color: var(--muted);
+  margin-top: 16px;
+  max-width: 44ch;
+}
+
+.contact-card {
+  background: var(--ink);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+
+.contact-card .row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-card .row:last-child {
+  border-bottom: 0;
+}
+
+.contact-card .ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--panel);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+
+.contact-card .ic svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-card .k {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  letter-spacing: .16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.contact-card .val {
+  font-size: .95rem;
+  color: var(--paper);
+}
+
+.contact-card .val:hover {
+  color: var(--gold);
+}

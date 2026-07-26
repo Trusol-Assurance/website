@@ -1,0 +1,53 @@
+/* ============================================================
+   PROCESS  (numbered = real sequence)
+   ============================================================ */
+.proc {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  padding-top: 30px;
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.step .n {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--gold);
+  letter-spacing: .1em;
+}
+
+.step .dot {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 5px rgba(255, 106, 44, .12);
+}
+
+.step h4 {
+  font-size: 1.2rem;
+  margin: 14px 0 8px;
+}
+
+.step p {
+  color: var(--muted);
+  font-size: .9rem;
+}

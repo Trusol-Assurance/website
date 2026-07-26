@@ -1,0 +1,100 @@
+/* ============================================================
+   MOBILE POLISH
+   ============================================================ */
+/* anchored sections clear the fixed nav when tapped from the menu */
+section[id] {
+  scroll-margin-top: 86px;
+}
+
+/* comfortable tap targets on touch devices (WCAG 2.5.8) */
+@media (pointer: coarse) {
+
+  .btn,
+  .bio-toggle,
+  .svc-tab,
+  .practice-tab,
+  .theme-toggle,
+  .burger {
+    min-height: 44px;
+  }
+
+  .mobile-menu a {
+    padding: 14px 0;
+  }
+
+  /* marquee :hover pause is meaningless on touch — keep it moving */
+  .marquee:hover .track {
+    animation-play-state: running;
+  }
+}
+
+@media (max-width:980px) {
+
+  /* portraits: don't blow up to full viewport width when stacked */
+  .portrait {
+    max-width: 420px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .founder-grid {
+    gap: 38px;
+  }
+
+  .founder-grid+.founder-grid {
+    margin-top: 72px;
+  }
+}
+
+@media (max-width:560px) {
+
+  /* long credential tags (Piyush) stay inside the frame */
+  .portrait .frame-tag {
+    font-size: .58rem;
+    letter-spacing: .1em;
+    left: 12px;
+    bottom: 12px;
+    right: 12px;
+    text-align: center;
+  }
+
+  .founder h2 {
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+  }
+
+  .creds {
+    gap: 8px;
+  }
+
+  .cred {
+    font-size: .68rem;
+    padding: 8px 12px;
+  }
+
+  .bio-toggle {
+    width: 100%;
+    text-align: center;
+  }
+
+  .marquee .track {
+    gap: 40px;
+  }
+
+  .marquee .item {
+    font-size: 1rem;
+    gap: 40px;
+  }
+}
+
+/* iOS notch / home-indicator safe areas */
+@supports (padding: env(safe-area-inset-left)) {
+  .nav {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+
+  .mobile-menu {
+    padding-top: max(40px, env(safe-area-inset-top));
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
+  }
+}
