@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider, themeBootScript } from "@/lib/theme";
 import { site } from "@/data/site";
+import { fontClass } from "./fonts";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -20,14 +21,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" data-theme="dark" className={fontClass} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
         {/* Sets data-theme before first paint to prevent a flash of the wrong theme. */}
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>

@@ -31,9 +31,9 @@
   --r-xl: 34px;
   --maxw: 1200px;
 
-  --ff-display: 'Space Grotesk', system-ui, sans-serif;
-  --ff-mono: 'Space Mono', ui-monospace, monospace;
-  --ff-body: 'Inter', system-ui, sans-serif;
+  --ff-display: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  --ff-mono: var(--font-mono), 'Space Mono', ui-monospace, monospace;
+  --ff-body: var(--font-body), 'Inter', system-ui, sans-serif;
 
   --ease: cubic-bezier(.22, .61, .36, 1);
 
