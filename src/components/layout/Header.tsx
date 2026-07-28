@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { navLinks, site } from "@/data/site";
 import { useNavScrolled } from "@/hooks/useNavScrolled";
 import { useTheme } from "@/lib/theme";
-import { ArrowRight, BrandMark, MoonIcon, SunIcon } from "@/components/ui/icons";
+import Image from "next/image";
+import { ArrowRight, MoonIcon, SunIcon } from "@/components/ui/icons";
 
 /** Matches the `@media (max-width:980px)` burger breakpoint in responsive.css. */
 const BURGER_BREAKPOINT = 980;
@@ -54,7 +55,7 @@ export function Header() {
       <nav className={navClass} id="nav">
         <a className="brand" href="#top" aria-label="Trusol Assurance home">
           <span className="mark" aria-hidden="true">
-            <BrandMark size={40} />
+            <Image src="/logo/trusol_logo.svg" alt="" width={40} height={40} />
           </span>
           <span className="name">
             {site.name}

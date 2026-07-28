@@ -7,6 +7,9 @@ import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: site.title,
   description: site.description,
+  icons: {
+    icon: "/logo/trusol_logo.svg",
+  },
 };
 
 export const viewport: Viewport = {

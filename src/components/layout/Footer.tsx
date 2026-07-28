@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { footerExplore, site } from "@/data/site";
+import Image from "next/image";
 import {
-  BrandMark,
   FacebookIcon,
   LinkedInIcon,
   MailOutlineIcon,
@@ -27,7 +27,7 @@ export function Footer() {
           <div>
             <a className="brand" href="#top">
               <span className="mark" aria-hidden="true">
-                <BrandMark size={38} />
+                <Image src="/logo/trusol_logo.svg" alt="" width={38} height={38} />
               </span>
               <span className="name">
                 {site.name}
