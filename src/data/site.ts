@@ -5,10 +5,10 @@ export const site = {
   description:
     "Trusol Assurance is one firm with two disciplines: CPA-led security & compliance audits (SOC 1/2/3, ISO 27001, HIPAA, GDPR) and full-service accounting & tax through its Agarwal Associates practice. Based in Princeton Junction, NJ.",
   phone: {
-    display: "(609) 945-0631",
-    href: "tel:6099450631",
+    display: "(866) 730-4063",
+    href: "tel:8667304063",
   },
-  email: "richa@trusolassurance.com",
+  email: "info@trusolassurance.com",
   address: {
     street: "54 Cartwright Dr",
     cityStateZip: "Princeton Junction, NJ 08550",
